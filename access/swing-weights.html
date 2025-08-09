@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swing Weight Data - Bat Digest Members</title>
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <!-- Page-specific CSS -->
+    <link href="/css/home.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a class="navbar-brand" href="">
+                <span class="brand-highlight">BAT</span>DIGEST
+                <small class="brand-subtitle">MEMBERS ONLY</small>
+            </a>
+            
+            <button class="navbar-toggle" onclick="toggleNav()">
+                ☰
+            </button>
+            
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a class="nav-link" href="/about.html">About</a></li>
+                <li><a class="nav-link" href="/products/book.html">The Book</a></li>
+                
+                
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="flex-between mb-4">
+    <h1>🏏 Swing Weight Data Access</h1>
+    <a href="/dashboard/" class="btn btn-secondary">← Back to Dashboard</a>
+</div>
+
+<div class="alert alert-success">
+    <h5>✅ Access Granted!</h5>
+    <p>You have access to our complete swing weight database with  bat measurements.</p>
+</div>
+
+<!-- Sample Data Display -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Swing Weight Database</h5>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">
+            <strong>What you get:</strong> Complete swing weight measurements for  bats including:
+        </p>
+        <ul>
+            <li>Industry standard 6-inches-from-knob measurements</li>
+            <li>Weight and balance points</li>
+            <li>Pendulum period data</li>
+            <li>Detailed specifications for each bat</li>
+            <li>Data from - across BBCOR, BESR, USSSA, and USA leagues</li>
+        </ul>
+        
+        <!-- Real Data Table -->
+        <div id="dataTable" class="mt-4">
+            <!-- Enhanced Searchable Table -->
+            <div id="generalSwingWeightTable">
+                <!-- Advanced table controls will be inserted here by JavaScript -->
+            </div>
+            
+            <!-- Fallback for users with JS disabled -->
+            <noscript>
+                <div class="alert alert-warning">
+                    <strong>JavaScript Required:</strong> For the best experience with search and filtering, please enable JavaScript in your browser.
+                </div>
+                <div class="flex-between mb-3">
+                    <h6>🏏 Complete Swing Weight Database</h6>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Brand</th>
+                                <th>Bat Name</th>
+                                <th>League</th>
+                                <th>Length</th>
+                                <th>Weight</th>
+                                <th>Swing Weight</th>
+                                <th>Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    Enable JavaScript to view all swing weight data with advanced search and filtering capabilities.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </noscript>
+        </div>
+    </div>
+</div>
+
+<script src="/js/advanced-table.js"></script>
+<script>
+// Initialize the advanced table for general swing weights
+let generalTable;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the advanced table
+    generalTable = new AdvancedTable('generalSwingWeightTable', {
+        searchPlaceholder: 'Search all bats by brand, name, league, length, weight...',
+        enableExport: true,
+        enableStats: true,
+        enableAdvancedFilters: true
+    });
+    
+    // Load the data automatically
+    loadGeneralSwingWeightData();
+});
+
+function loadGeneralSwingWeightData() {
+    // Fetch the data
+    fetch('/access/api/swing-weight-data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reinitialize the table with controls
+                generalTable = new AdvancedTable('generalSwingWeightTable', {
+                    searchPlaceholder: 'Search all bats by brand, name, league, length, weight...',
+                    enableExport: true,
+                    enableStats: true,
+                    enableAdvancedFilters: true
+                });
+                
+                // Load the data into the table
+                generalTable.loadData(data.rows, data.headers);
+            } else {
+                document.getElementById('generalSwingWeightTable').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Error loading data: ${data.error}
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error loading swing weight data:', error);
+            document.getElementById('generalSwingWeightTable').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Failed to load swing weight data. Please refresh the page to try again.
+                </div>
+            `;
+        });
+}
+</script>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p class="mb-0">&copy; 2025 <a href="https://www.batdigest.com/" class="footer-link text-primary">Bat Digest</a> All Rights Reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+                    <a href="/terms.html" class="footer-link">Terms of Service</a>
+                    <a href="/about.html" class="footer-link">About Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('navbarNav');
+            nav.classList.toggle('show');
+        }
+        
+        // Close nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('navbarNav');
+            const toggle = document.querySelector('.navbar-toggle');
+            
+            if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+                nav.classList.remove('show');
+            }
+        });
+
+        // Legacy purchase function - no longer used, replaced with direct cart/checkout links
+        /*
+        function purchaseProduct(productType, price) {
+            // For now, redirect to login - later this will integrate with Stripe
+            alert(`Purchase ${productType} for $${price} - Coming soon! This will integrate with Stripe checkout.`);
+            
+            // Temporary redirect to login
+            window.location.href = "/login.html";
+        }
+        */
+    </script>
+</body>
+</html>

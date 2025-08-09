@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fastpitch Data Access</title>
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <!-- Page-specific CSS -->
+    <link href="/css/home.css" rel="stylesheet">
+<style>
+.performance-tables-container .card {
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+.performance-tables-container .card-header button {
+    color: #333;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    font-weight: 500;
+}
+
+.performance-tables-container .card-header button:hover {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.year-badge {
+    background: #007bff;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.performance-table-card .table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.performance-table-card .table th {
+    position: sticky;
+    top: 0;
+    background: #343a40;
+    color: white;
+}
+</style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a class="navbar-brand" href="">
+                <span class="brand-highlight">BAT</span>DIGEST
+                <small class="brand-subtitle">MEMBERS ONLY</small>
+            </a>
+            
+            <button class="navbar-toggle" onclick="toggleNav()">
+                ☰
+            </button>
+            
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a class="nav-link" href="/about.html">About</a></li>
+                <li><a class="nav-link" href="/products/book.html">The Book</a></li>
+                
+                
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="flex-between mb-4">
+    <h1>🏏 Fastpitch Swing Weight Data Access</h1>
+    <a href="/dashboard/" class="btn btn-secondary">← Back to Dashboard</a>
+</div>
+
+<div class="alert alert-success">
+    <h5>✅ Access Granted!</h5>
+    <p>You have access to our complete fastpitch swing weight database with  bat measurements.</p>
+</div>
+
+<!-- Sample Data Display -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Fastpitch Swing Weight Database</h5>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">
+            <strong>What you get:</strong> Complete fastpitch swing weight measurements for  bats including:
+        </p>
+        <ul>
+            <li>Total Fastpitch Bats: </li>
+            <li>Swing Weight Range:  - </li>
+            <li>Average Swing Weight: </li>
+            <li>Industry standard 6-inches-from-knob measurements</li>
+            <li>Weight and balance points for all fastpitch bats</li>
+            <li>Pendulum period data and detailed specifications</li>
+        </ul>
+    </div>
+</div>
+
+<div class="stripe-section">
+    <div class="container">
+        <div class="product-access-content">
+            <div class="access-navigation">
+                <h3>Available Data</h3>
+                <ul class="data-nav">
+                    <li><a href="#performance-data">Performance Rankings</a></li>
+                    <li><a href="#exit-velocity">Exit Velocity Data</a></li>
+                    <li><a href="#swing-weights">Swing Weight Analysis</a></li>
+                    <li><a href="#swing-weights">Complete Swing Weights</a></li>
+                    
+                    <li><a href="#specifications">Specifications</a></li>
+                </ul>
+            </div>
+            
+            <div class="data-section" id="swing-weights">
+                <h2>Fastpitch Swing Weight Database</h2>
+                <p>Complete swing weight measurements for all  fastpitch softball bats in our database. Use the advanced search and filters below to find exactly what you're looking for.</p>
+                
+                <!-- Enhanced Searchable Table -->
+                <div id="fastpitchSwingWeightTable">
+                    <!-- Advanced table controls will be inserted here by JavaScript -->
+                </div>
+                
+                <!-- Fallback Preview Table (for users with JS disabled) -->
+                <noscript>
+                    <div class="alert alert-warning">
+                        <strong>JavaScript Required:</strong> For the best experience with search and filtering, please enable JavaScript in your browser.
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Brand</th>
+                                    <th>Bat Name</th>
+                                    <th>Length</th>
+                                    <th>Stated Weight</th>
+                                    <th>Actual Weight</th>
+                                    <th>Swing Weight</th>
+                                    <th>Balance Point</th>
+                                    <th>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </noscript>
+            </div>
+            
+            <!-- Performance Data Tables Section -->
+            
+                                        
+                                        
+                                        <h6 class="text-primary mb-2">📊 Performance Analysis</h6>
+                                        <p class="mb-1">
+                                             Compare individual bat models to find the optimal balance of swing weight, exit velocity, and feel for your hitting style.
+                                            
+                                        </p>
+                                        
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            <div class="data-section" id="specifications">
+                <h2>Data Specifications</h2>
+                <p>Understanding the measurements and methodology behind our fastpitch data.</p>
+                
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <h4>Swing Weight</h4>
+                        <p>Measured 6 inches from the knob. Optimized for fastpitch softball mechanics and female athletes.</p>
+                    </div>
+                    <div class="spec-card">
+                        <h4>Fastpitch Standards</h4>
+                        <p>ASA/USA Softball approved bats with performance standards for competitive play.</p>
+                    </div>
+                    <div class="spec-card">
+                        <h4>Competition Levels</h4>
+                        <p>Analysis covering high school, college, and competitive fastpitch softball levels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<script src="/js/advanced-table.js"></script>
+<script>
+// Initialize the advanced table for Fastpitch swing weights
+let fastpitchTable;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the advanced table
+    fastpitchTable = new AdvancedTable('fastpitchSwingWeightTable', {
+        searchPlaceholder: 'Search fastpitch bats by brand, name, length, weight...',
+        enableExport: true,
+        enableStats: true,
+        enableAdvancedFilters: true
+    });
+    
+    // Load the data automatically
+    loadFastpitchSwingWeightData();
+});
+
+function loadFastpitchSwingWeightData() {
+    // Show loading state
+    const container = document.getElementById('fastpitchSwingWeightTable');
+    // Fetch the data immediately without loading indicator
+    fetch('/access/api/swing-weight-data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reinitialize the table with controls
+                fastpitchTable = new AdvancedTable('fastpitchSwingWeightTable', {
+                    searchPlaceholder: 'Search fastpitch bats by brand, name, length, weight...',
+                    enableExport: true,
+                    enableStats: true,
+                    enableAdvancedFilters: true
+                });
+                
+                // Load the data into the table
+                fastpitchTable.loadData(data.rows, data.headers);
+            } else {
+                container.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Error loading data: ${data.error}
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error loading Fastpitch data:', error);
+            container.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Failed to load fastpitch swing weight data. Please refresh the page to try again.
+                </div>
+            `;
+        });
+}
+
+// Function to show all rows in performance tables (keeping existing functionality)
+function showAllRows(tableId) {
+    const tableElement = document.getElementById(tableId);
+    const tbody = tableElement.querySelector('tbody');
+    const button = tableElement.querySelector('button[onclick*="showAllRows"]');
+    
+    // This would typically make an AJAX call to get all rows
+    // For now, just hide the button and show a message
+    button.style.display = 'none';
+    const parent = button.parentElement;
+    parent.innerHTML += '<small class="text-success">All rows loaded</small>';
+}
+</script>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p class="mb-0">&copy; 2025 <a href="https://www.batdigest.com/" class="footer-link text-primary">Bat Digest</a> All Rights Reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+                    <a href="/terms.html" class="footer-link">Terms of Service</a>
+                    <a href="/about.html" class="footer-link">About Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('navbarNav');
+            nav.classList.toggle('show');
+        }
+        
+        // Close nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('navbarNav');
+            const toggle = document.querySelector('.navbar-toggle');
+            
+            if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+                nav.classList.remove('show');
+            }
+        });
+
+        // Legacy purchase function - no longer used, replaced with direct cart/checkout links
+        /*
+        function purchaseProduct(productType, price) {
+            // For now, redirect to login - later this will integrate with Stripe
+            alert(`Purchase ${productType} for $${price} - Coming soon! This will integrate with Stripe checkout.`);
+            
+            // Temporary redirect to login
+            window.location.href = "/login.html";
+        }
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Bat Digest Members</title>
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <!-- Page-specific CSS -->
+    <style>
+.dashboard-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.welcome-header {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border-left: 6px solid var(--bd-red);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--bd-red);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.products-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--product-color, var(--bd-red));
+    border-radius: 8px 8px 0 0;
+}
+
+.product-card.gold::before { background: linear-gradient(90deg, #ffd700, #ffed4e); }
+.product-card.primary::before { background: var(--bd-red); }
+.product-card.info::before { background: #3b82f6; }
+.product-card.secondary::before { background: var(--gray-500); }
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: #cbd5e1;
+}
+
+.product-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.product-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.product-icon.gold { background: linear-gradient(135deg, #ffd700, #ffed4e); }
+.product-icon.primary { background: var(--bd-red); }
+.product-icon.info { background: #3b82f6; }
+.product-icon.secondary { background: var(--gray-500); }
+
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+.product-description {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+.product-features {
+    margin: 0.75rem 0;
+}
+
+.feature-tag {
+    display: inline-block;
+    background: #f1f5f9;
+    color: var(--gray-600);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+}
+
+.access-button {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    background: var(--bd-red);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.access-button:hover {
+    background: var(--bd-red-dark);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+}
+
+.no-products {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gray-500);
+}
+
+.no-products-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+.purchase-cta {
+    margin-top: 1.5rem;
+}
+
+.purchase-cta .btn {
+    background: var(--bd-red);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.purchase-cta .btn:hover {
+    background: var(--bd-red-dark);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.available-products-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.product-card.available {
+    border-left: 3px solid #22c55e;
+}
+
+.product-card.available::before {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.product-icon.success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+}
+
+.product-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #22c55e;
+    margin-top: 0.25rem;
+}
+
+.purchase-button {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.purchase-button:hover {
+    background: #16a34a;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+}
+
+.recent-activity {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: var(--gray-500);
+}
+
+.activity-content {
+    flex-grow: 1;
+}
+
+.activity-title {
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.25rem;
+}
+
+.activity-meta {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+}
+
+@media (max-width: 768px) {
+    .welcome-header {
+        padding: 1.5rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a class="navbar-brand" href="">
+                <span class="brand-highlight">BAT</span>DIGEST
+                <small class="brand-subtitle">MEMBERS ONLY</small>
+            </a>
+            
+            <button class="navbar-toggle" onclick="toggleNav()">
+                ☰
+            </button>
+            
+            <ul class="navbar-nav" id="navbarNav">
+                <li><a class="nav-link" href="/about.html">About</a></li>
+                <li><a class="nav-link" href="/products/book.html">The Book</a></li>
+                
+                
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="dashboard-container">
+    <div class="container">
+        <!-- Welcome Header -->
+        <div class="welcome-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mb-2">Welcome back, ! 👋</h1>
+                    <p class="text-muted mb-0">
+                        Member since  •  active product
+                    </p>
+                </div>
+                <div class="text-right d-none d-md-block">
+                    <div class="text-muted small">Your Account</div>
+                    <div class="font-weight-bold"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number"></div>
+                <div class="stat-label">Active Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"></div>
+                <div class="stat-label">Total Purchases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$</div>
+                <div class="stat-label">Total Invested</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">
+                    
+                </div>
+                <div class="stat-label">
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Your Products -->
+        <div class="products-section">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">
+                    <i class="fas fa-key text-primary me-2"></i>
+                    Your Products & Access
+                </h2>
+                
+            </div>
+
+            
+        </div>
+
+        <!-- Available Products -->
+        
+
+        <!-- Recent Activity -->
+        
+                    </div>
+                    <div class="activity-meta">
+                         • 
+                        $ • 
+                        <span class="text-success"></span>
+                    </div>
+                </div>
+                <div class="text-muted">
+                    <small>#</small>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p class="mb-0">&copy; 2025 <a href="https://www.batdigest.com/" class="footer-link text-primary">Bat Digest</a> All Rights Reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+                    <a href="/terms.html" class="footer-link">Terms of Service</a>
+                    <a href="/about.html" class="footer-link">About Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script>
+        function toggleNav() {
+            const nav = document.getElementById('navbarNav');
+            nav.classList.toggle('show');
+        }
+        
+        // Close nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('navbarNav');
+            const toggle = document.querySelector('.navbar-toggle');
+            
+            if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+                nav.classList.remove('show');
+            }
+        });
+
+        // Legacy purchase function - no longer used, replaced with direct cart/checkout links
+        /*
+        function purchaseProduct(productType, price) {
+            // For now, redirect to login - later this will integrate with Stripe
+            alert(`Purchase ${productType} for $${price} - Coming soon! This will integrate with Stripe checkout.`);
+            
+            // Temporary redirect to login
+            window.location.href = "/login.html";
+        }
+        */
+    </script>
+</body>
+</html>
